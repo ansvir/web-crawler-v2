@@ -1,9 +1,13 @@
 package org.example.crawler.feature.impl;
 
+import org.example.crawler.builder.report.WebReportBuilder;
 import org.example.crawler.feature.Feature;
 import org.example.crawler.feature.type.OutputType;
+import org.example.crawler.model.tree.Node;
+import org.example.crawler.model.web.WebReport;
+import org.jsoup.nodes.Document;
 
-public class OutputFeature implements Feature {
+public class OutputFeature implements Feature<String, WebReport> {
 
     private final OutputType outputType;
 
@@ -12,7 +16,7 @@ public class OutputFeature implements Feature {
     }
 
     @Override
-    public void process() {
+    public String process(WebReport report) {
 
     }
 }

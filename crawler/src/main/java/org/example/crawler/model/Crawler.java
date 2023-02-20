@@ -1,40 +1,34 @@
 package org.example.crawler.model;
 
 import org.example.crawler.feature.Feature;
+import org.jsoup.nodes.Document;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Crawler {
+public class Crawler<T, R> extends Identifiable {
 
-    private final UUID id;
-    private final Set<Feature> features;
+    private final Set<Feature<T, R>> features;
     private final int threads;
     private final String root;
     private final int depth;
 
-    public Crawler(int threads, String root, int depth, Set<Feature> features) {
-        this.id = UUID.randomUUID();
+    public Crawler(int threads, String root, int depth, Set<Feature<T, R>> features) {
         this.features = features;
         this.threads = threads;
         this.root = root;
         this.depth = depth;
     }
 
-    private Crawler(UUID id, int threads, String root, int depth, Set<Feature> features) {
-        this.id = id;
+    private Crawler(UUID id, int threads, String root, int depth, Set<Feature<T, R>> features) {
+        super(id);
         this.features = features;
         this.threads = threads;
         this.root = root;
         this.depth = depth;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public Set<Feature> getFeatures() {
+    public Set<Feature<T, R>> getFeatures() {
         return features;
     }
 
@@ -50,8 +44,8 @@ public class Crawler {
         return depth;
     }
 
-    public Crawler copy() {
-        return new Crawler(this.id,
+    public Crawler<T ,R> copy() {
+        return new Crawler<>(getId(),
                 this.threads,
                 this.root,
                 this.threads,

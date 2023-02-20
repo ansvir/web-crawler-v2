@@ -1,7 +1,7 @@
 package org.example.crawler.feature;
 
-public interface Feature {
+public interface Feature<T, R> {
 
-    void process();
+    T process(R input);
 
 }
