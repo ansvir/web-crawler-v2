@@ -5,6 +5,12 @@ import org.example.runner.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Task pool for storing in JVM memory separate threads.
+ * Threads can be any of {@link Runnable}
+ *
+ * @since 1.0-SNAPSHOT
+ */
 public class TaskPool {
 
     private final List<Task> tasks;
