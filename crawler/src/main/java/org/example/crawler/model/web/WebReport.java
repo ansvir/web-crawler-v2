@@ -1,9 +1,12 @@
 package org.example.crawler.model.web;
 
 import org.example.crawler.feature.Feature;
+import org.example.crawler.feature.impl.crawl.CrawlFeature;
+import org.example.crawler.feature.impl.document.DocumentFeature;
 
-/** Theoretically, contains all web features processing results in separate field.
- * Sometimes fields are compatible.
+/** The result of middle processing step - processing {@link DocumentFeature}s
+ * Contains all necessary data to prepare for last step - processing of {@link CrawlFeature}s
+ * over ready documents
  *
  * @see Feature
  * @since 1.0-SNAPSHOT

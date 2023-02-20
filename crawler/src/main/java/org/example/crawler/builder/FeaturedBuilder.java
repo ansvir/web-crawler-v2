@@ -5,19 +5,19 @@ import org.example.crawler.feature.Feature;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class FeaturedBuilder<T ,R> {
+public abstract class FeaturedBuilder<T, R, F extends Feature<T, R>> {
 
-    private final Set<Feature<T, R>> features;
+    private final Set<F> features;
 
     public FeaturedBuilder() {
         this.features = new HashSet<>();
     }
 
-    protected void addFeature(Feature<T, R> feature) {
+    protected void addFeature(F feature) {
         this.features.add(feature);
     }
 
-    protected Set<Feature<T ,R>> getFeatures() {
+    protected Set<F> getFeatures() {
         return features;
     }
 

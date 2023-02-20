@@ -1,8 +1,6 @@
-package org.example.crawler.feature.impl.web.crawl;
+package org.example.crawler.feature.impl.document;
 
 import org.example.crawler.builder.report.WebReportBuilder;
-import org.example.crawler.feature.Feature;
-import org.example.crawler.model.tree.Node;
 import org.example.crawler.model.tree.WebNode;
 import org.example.crawler.util.UrlParserUtil;
 import org.jsoup.nodes.Document;
@@ -13,14 +11,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RankFeature implements Feature<WebReportBuilder, Node<Document>> {
+public class RankFeature implements DocumentFeature {
 
     @Override
-    public WebReportBuilder process(Node<Document> node) {
+    public WebReportBuilder process(WebNode node) {
         Document doc = node.getElement();
         Element body = doc.body();
-        WebNode webNode = ((WebNode) node);
-        URL sourceUrl = UrlParserUtil.parseUrl(webNode.getUrl());
+        URL sourceUrl = UrlParserUtil.parseUrl(node.getUrl());
         int totalEqualUrls = 0;
         List<String> urls = new ArrayList<>();
         writeUrls(body, urls);

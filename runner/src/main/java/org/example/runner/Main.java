@@ -1,21 +1,21 @@
 package org.example.runner;
 
-import org.example.crawler.builder.crawler.WebCrawlerBuilder;
-import org.example.crawler.builder.report.WebReportBuilder;
+import org.example.crawler.builder.crawler.CrawlRequestBuilder;
+import org.example.crawler.builder.document.WebDocumentBuilder;
 import org.example.crawler.model.Crawler;
 import org.example.crawler.model.tree.WebNode;
-import org.example.runner.impl.RunnerImpl;
+import org.example.runner.thread.CrawlRunnable;
 
 public class Main {
 
     public static void main(String[] args) {
-        Crawler<WebReportBuilder, WebNode> crawler = WebCrawlerBuilder.builder()
+        Crawler crawler = CrawlRequestBuilder.builder()
                 .threads(10)
                 .root(args[0])
                 .depth(Integer.parseInt(args[1]))
                 .build();
-        Runner runner = new RunnerImpl(crawler);
-        runner.run();
+        CrawlRunnable crawling = new CrawlRunnable(crawler);
+        crawling.run();
     }
 
 }

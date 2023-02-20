@@ -1,26 +1,35 @@
 package org.example.crawler.model;
 
 import org.example.crawler.feature.Feature;
-import org.jsoup.nodes.Document;
+import org.example.crawler.feature.impl.crawl.CrawlFeature;
+import org.example.crawler.feature.impl.document.DocumentFeature;
+import org.example.crawler.feature.impl.request.CrawlRequestFeature;
 
 import java.util.Set;
 import java.util.UUID;
 
-public class Crawler<T, R> extends Identifiable {
+/**
+ * Common configuration class that serve as a transition of crawling
+ * properties to each level - {@link CrawlRequestFeature}, {@link DocumentFeature}, {@link CrawlFeature}.
+ *
+ * @see Feature
+ * @since 1.0-SNAPSHOT
+ */
+public class Crawler extends Identifiable {
 
-    private final Set<Feature<T, R>> features;
+    private final Set<CrawlRequestFeature> features;
     private final int threads;
     private final String root;
     private final int depth;
 
-    public Crawler(int threads, String root, int depth, Set<Feature<T, R>> features) {
+    public Crawler(int threads, String root, int depth, Set<CrawlRequestFeature> features) {
         this.features = features;
         this.threads = threads;
         this.root = root;
         this.depth = depth;
     }
 
-    private Crawler(UUID id, int threads, String root, int depth, Set<Feature<T, R>> features) {
+    private Crawler(UUID id, int threads, String root, int depth, Set<CrawlRequestFeature> features) {
         super(id);
         this.features = features;
         this.threads = threads;
@@ -28,7 +37,7 @@ public class Crawler<T, R> extends Identifiable {
         this.depth = depth;
     }
 
-    public Set<Feature<T, R>> getFeatures() {
+    public Set<CrawlRequestFeature> getFeatures() {
         return features;
     }
 
@@ -44,8 +53,8 @@ public class Crawler<T, R> extends Identifiable {
         return depth;
     }
 
-    public Crawler<T ,R> copy() {
-        return new Crawler<>(getId(),
+    public Crawler copy() {
+        return new Crawler(getId(),
                 this.threads,
                 this.root,
                 this.threads,

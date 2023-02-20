@@ -1,30 +1,30 @@
 package org.example.runner.thread;
 
-import org.example.crawler.builder.report.WebReportBuilder;
+import org.example.crawler.builder.document.WebDocumentBuilder;
 import org.example.crawler.model.Crawler;
 import org.example.crawler.model.tree.Node;
 import org.example.crawler.model.tree.WebNode;
 import org.example.crawler.model.web.WebStateTree;
+import org.example.runner.model.Task;
 import org.jsoup.nodes.Document;
 
 
-public class CrawlerRunnable implements Runnable {
+public class CrawlRequestRunnable extends Task {
 
     private final Crawler crawler;
     private final WebStateTree tree;
     private final TaskPool documents;
-    private WebReportBuilder webReportBuilder;
+    private WebDocumentBuilder webDocumentBuilder;
 
-    public CrawlerRunnable(Crawler crawler, WebStateTree tree, TaskPool documents) {
+    public CrawlRequestRunnable(Crawler crawler, WebStateTree tree, TaskPool documents) {
+        super(() -> documents.getTasks().forEach(t -> {
+            documents.removeTask(t);
+            t.run();
+        }));
         this.crawler = crawler;
         this.tree = tree;
         this.documents = documents;
-        this.webReportBuilder = WebReportBuilder.builder();
-    }
-
-    @Override
-    public void run() {
-        this.documents.getTasks().forEach(Runnable::run);
+        this.webDocumentBuilder = WebDocumentBuilder.builder();
     }
 
     private int findMaxDepth(Node<Document> node) {
